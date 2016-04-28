@@ -9,7 +9,6 @@ from the API takes ***3 seconds*** *minimum* ...
 ![api-request-time](https://cloud.githubusercontent.com/assets/194400/14903775/6d991418-0d9b-11e6-9910-8e58095bea8b.png)
 
 
-
 ## *What?*
 
 
