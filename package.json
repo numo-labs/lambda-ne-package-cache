@@ -1,0 +1,27 @@
+{
+  "name": "lambda-ne-package-cache",
+  "version": "1.0.0",
+  "description": "ne classic package cache for fast results and happy users",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/numo-labs/lambda-ne-package-cache.git"
+  },
+  "keywords": [
+    "package",
+    "cache",
+    "lambda"
+  ],
+  "author": "Pascal & Pals @ Numo Labs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/numo-labs/lambda-ne-package-cache/issues"
+  },
+  "homepage": "https://github.com/numo-labs/lambda-ne-package-cache#readme"
+}
