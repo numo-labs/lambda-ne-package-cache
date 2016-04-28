@@ -3,6 +3,12 @@ cache ne classic packages for 5mins to return results to clients much faster.
 
 ## *Why?*
 
+Fetching Travel Packages (*to show potential travelers in search results*)
+from the API takes ***3 seconds*** *minimum* ...
+
+![api-request-time](https://cloud.githubusercontent.com/assets/194400/14903775/6d991418-0d9b-11e6-9910-8e58095bea8b.png)
+
+
 
 ## *What?*
 
@@ -10,9 +16,32 @@ cache ne classic packages for 5mins to return results to clients much faster.
 ## *How?*
 
 
+
+
 ### Environment variables
 
+To run this project on your local machine (*or on AWS*) you will need to
+have a few Environment variables exported.
+
+Create a file in the root of the project called `.env` and paste the following
+sample into it;
+
+```sh
+export NE_API_KEY=ASKTheTeamForAKey
+export NE_API_URL=https://api.travel.net
+export AWS_REGION=eu-west-1
+export AWS_IAM_ROLE=arn:aws:iam::123456789:role/lambdafull
+export AWS_ACCESS_KEY_ID=YOUR_ID
+export AWS_SECRET_ACCESS_KEY=YORKIE
+```
+Then add the *real* values.
+
 > Environment Variables on a Lambda...?
+
+Because we are using [`env2`](https://github.com/dwyl/env2) we can
+load our environment variables from a *file* ...
+that file is an `.env` file (*by naming convention*) which gets ignored
+in the `.gitignore` which means it's never published to GitHub.
 
 ## Open Source the "*Secret Sauce*"...?
 
