@@ -1,9 +1,10 @@
 # lambda-ne-package-cache
-cache ne classic packages for 5mins to return results to clients much faster.
+cache ne classic packages for 5mins to return results to clients *super*s faster.
 
 [![Codeship Status](https://www.codeship.io/projects/ea128e30-f013-0133-d4d1-7aa0b68b0e4b?branch=master)](https://codeship.com/projects/149152)
 [![codecov](https://codecov.io/gh/numo-labs/lambda-ne-package-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/numo-labs/lambda-ne-package-cache)
 
+![numo-sample-packages](https://cloud.githubusercontent.com/assets/194400/14930111/5d0f3488-0e59-11e6-8ae4-321498f0cfa0.png)
 
 ## *Why?*
 
@@ -12,18 +13,33 @@ from the API takes ***3 seconds*** *minimum* ... (*we've seen it take up to 8 se
 
 ![api-request-time](https://cloud.githubusercontent.com/assets/194400/14903775/6d991418-0d9b-11e6-9910-8e58095bea8b.png)
 
+The packages don't change, what does change is the ***Prices and Availability***,
+but even this does not change more than every hour. So ... if we cache
+the listings for an hour the probability that a given package will be
+unavailable once the person clicks through to booking is low.
+(*we should track this and determine if its a risk to cache...*)
+
 
 ## *What?*
 
-
+This ***experimental*** lambda caches *one* package for each hotel/resort
+so when people search for a given destination, we can immediately return
+a *sample* result to the client (*sub 200ms*).
 
 
 ## *How?*
 
+Search queries from the frontend application (UI/Client) first go to
+CloudSearch where we look for the *place* (*against our list of Geonames tags*)
+once we have the list of places (*geonames ids*) we send them to Neo4J
+and look for the ***Master Hotles*** corresponding to the places s
+
+
+### 1. List NE Hotels mapped to Master Hotel ID (MHID)
 
 
 
-### Environment variables
+### *Required* Environment variables
 
 To run this project on your local machine (*or on AWS*) you will need to
 have a few Environment variables exported.
