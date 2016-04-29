@@ -1,15 +1,21 @@
 # lambda-ne-package-cache
 cache ne classic packages for 5mins to return results to clients much faster.
 
+[![Codeship Status](https://www.codeship.io/projects/ea128e30-f013-0133-d4d1-7aa0b68b0e4b?branch=master)](https://codeship.com/projects/149152)
+[![codecov](https://codecov.io/gh/numo-labs/lambda-ne-package-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/numo-labs/lambda-ne-package-cache)
+
+
 ## *Why?*
 
 Fetching Travel Packages (*to show potential travelers in search results*)
-from the API takes ***3 seconds*** *minimum* ...
+from the API takes ***3 seconds*** *minimum* ... (*we've seen it take up to 8 seconds...*!)
 
 ![api-request-time](https://cloud.githubusercontent.com/assets/194400/14903775/6d991418-0d9b-11e6-9910-8e58095bea8b.png)
 
 
 ## *What?*
+
+
 
 
 ## *How?*
