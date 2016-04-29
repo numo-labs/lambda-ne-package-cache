@@ -45,24 +45,23 @@ describe('api_request', function () {
       done();
     });
   });
-  //
-  // it('GET NE hotels (fetch additional info)', function (done) {
-  //   var params = {
-  //     path: 'hotels',
-  //     stage: '$LATEST', // there is no 'prod' API Gateway endpoint for now.
-  //     hotelIds: '139891,10002,99281',
-  //     adults: 2,
-  //     allInclusive: 'true', // yes these values are strings not boolean!
-  //     lmsOnly: 'true'
-  //   };
-  //   api_request(params, function (err, json) {
-  //     assert(!err);
-  //     var sample_filename = dir + 'NE_hotels_without_trips.json';
-  //     fs.writeFileSync(sample_filename, JSON.stringify(json, null, 2));
-  //     // console.log(JSON.stringify(json.result[0], null, 2));
-  //     console.log('Result Count:', json.result.length);
-  //     assert(json.result.length > 1);
-  //     done();
-  //   });
-  // });
+
+  it.only('GET NE hotels (fetch additional info)', function (done) {
+    var params = {
+      path: 'hotels',
+      hotelIds: '139891,10002,99281',
+      adults: 2,
+      allInclusive: 'true', // yes these values are strings not boolean!
+      lmsOnly: 'true'
+    };
+    api_request(params, function (err, json) {
+      assert(!err);
+      // var sample_filename = dir + 'NE_hotels_without_trips.json';
+      // fs.writeFileSync(sample_filename, JSON.stringify(json, null, 2));
+      // console.log(JSON.stringify(json.result[0], null, 2));
+      console.log('Result Count:', json.result.length);
+      assert(json.result.length > 1);
+      done();
+    });
+  });
 });

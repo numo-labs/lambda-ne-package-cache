@@ -1,8 +1,8 @@
 # lambda-ne-package-cache
 cache ne classic packages for 5mins to return results to clients *super*s faster.
 
-[![Codeship Status](https://www.codeship.io/projects/ea128e30-f013-0133-d4d1-7aa0b68b0e4b?branch=master)](https://codeship.com/projects/149152)
-[![codecov](https://codecov.io/gh/numo-labs/lambda-ne-package-cache/branch/master/graph/badge.svg)](https://codecov.io/gh/numo-labs/lambda-ne-package-cache)
+[![Codeship Build Status](https://img.shields.io/codeship/ea128e30-f013-0133-d4d1-7aa0b68b0e4b.svg?maxAge=2592000)](https://codeship.com/projects/149152)
+[![Codecov Test Coverage](https://img.shields.io/codecov/c/github/numo-labs/lambda-ne-package-cache/master.svg?maxAge=2592000)](https://codecov.io/gh/numo-labs/lambda-ne-package-cache)
 
 ![numo-sample-packages](https://cloud.githubusercontent.com/assets/194400/14930111/5d0f3488-0e59-11e6-8ae4-321498f0cfa0.png)
 
@@ -14,9 +14,10 @@ from the API takes ***3 seconds*** *minimum* ... (*we've seen it take up to 8 se
 ![api-request-time](https://cloud.githubusercontent.com/assets/194400/14903775/6d991418-0d9b-11e6-9910-8e58095bea8b.png)
 
 The packages don't change, what does change is the ***Prices and Availability***,
-but even this does not change more than every hour. So ... if we cache
-the listings for an hour the probability that a given package will be
-unavailable once the person clicks through to booking is low.
+but even this does not change more than every hour
+(*unless a package is totally sold out, which is rare!*).
+So ... if we cache the listings for an hour the probability that a given package
+will be unavailable once the person clicks through to booking is low.
 (*we should track this and determine if its a risk to cache...*)
 
 
@@ -36,6 +37,12 @@ and look for the ***Master Hotles*** corresponding to the places s
 
 
 ### 1. List NE Hotels mapped to Master Hotel ID (MHID)
+
+At present only **2212** NE Hotels are mapped to Master Hotels
+(*the mapping is an on-going project we do not have control/influence over*...)
+
+The NE Metadata API only requests for trips with hotelIds in batches of 30.
+so we need to split the list of NE hotelIds into (2212/30=**74**) batches.
 
 
 
