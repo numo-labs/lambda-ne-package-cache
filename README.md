@@ -42,8 +42,16 @@ At present only **2212** NE Hotels are mapped to Master Hotels
 (*the mapping is an on-going project we do not have control/influence over*...)
 
 The NE Metadata API only requests for trips with hotelIds in batches of 30.
-so we need to split the list of NE hotelIds into (2212/30=**74**) batches.
+so *initially* I split the list of NE hotelIds into (2212/30=**74**) **74 batches**.
 
+
+
+> If we split the list of `hotelIds` into batches of 30 we only get packages
+for 362 of the hotels. see: `lib/get_packages.js` for the experiment.
+> But when we reduce the batch size the number of results go *up*...
+> ultimately we are going to have to send *one* request to the API for
+*each* hotel (*i.e. batches of 1 `hotelIds` per request*) to ensure that
+we are getting the results.
 
 
 ### *Required* Environment variables
