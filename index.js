@@ -1,3 +1,5 @@
 // read the cache file from filesystem
 
-// refresh the cache
+// refresh the cache from API
+
+// save packages to dynamodb

@@ -1,5 +1,5 @@
-# lambda-ne-package-cache
-cache ne classic packages for 5mins to return results to clients *super*s faster.
+# lambda ne package cache
+cache ne classic packages for `{X}` mins to return results to clients *super* faster.
 
 [![Codeship Build Status](https://img.shields.io/codeship/ea128e30-f013-0133-d4d1-7aa0b68b0e4b.svg?maxAge=2592000)](https://codeship.com/projects/149152)
 [![Codecov Test Coverage](https://img.shields.io/codecov/c/github/numo-labs/lambda-ne-package-cache/master.svg?maxAge=2592000)](https://codecov.io/gh/numo-labs/lambda-ne-package-cache)
@@ -24,8 +24,12 @@ will be unavailable once the person clicks through to booking is low.
 ## *What?*
 
 This ***experimental*** lambda caches *one* package for each hotel/resort
-so when people search for a given destination, we can immediately return
+so when people search for a given destination, we can ***immediately*** return
 a *sample* result to the client (*sub 200ms*).
+
+> Our *existing* **NE Package Provider** Lambda function uses API Gateway
+as a *Reverse-Proxy* which caches the API requests, this is *good* but
+its *much slower* than caching the sample packages in the Lambda Container's RAM.
 
 
 ## *How?*
@@ -41,17 +45,33 @@ and look for the ***Master Hotles*** corresponding to the places s
 At present only **2212** NE Hotels are mapped to Master Hotels
 (*the mapping is an on-going project we do not have control/influence over*...)
 
-The NE Metadata API only requests for trips with hotelIds in batches of 30.
+> See: https://github.com/numo-labs/taggable-master-hotel-mapping-script (*private repo*)
+
+The NE Metadata API only requests for trips with hotelIds in batches of 30.  
 so *initially* I split the list of NE hotelIds into (2212/30=**74**) **74 batches**.
 
-
-
 > If we split the list of `hotelIds` into batches of 30 we only get packages
-for 362 of the hotels. see: `lib/get_packages.js` for the experiment.
-> But when we reduce the batch size the number of results go *up*...
-> ultimately we are going to have to send *one* request to the API for
-*each* hotel (*i.e. batches of 1 `hotelIds` per request*) to ensure that
-we are getting the results.
+for 349 of the hotels.  
+> see: `lib/get_packages.js` for the experiment script.  
+> But when we reduce the batch size the number of results go *up*:
+
+| Batch size | Requests/Batches | Time (ms) | Packages |
+| -----------|:----------------:|:---------:|:--------:|
+| 30 | 74  | 34804  | 349 |
+| 25 | 89  | 99924  | 416 |
+| 20 | 111 | 113483 | 522 |
+| 15 | 148 | 150543 | 591 |
+| 10 | 221 | 116966 | 710 |
+| 5  | 442 | 445671 | 852 |
+| 1  | 2210 | 2211731 | 964 |
+
+> Ultimately we are going to have to send ***one request*** to the API for
+***each hotel*** to ensure that we are getting the results.
+
+Still the *vast* majority of Hotels do not have packages available ...
+
+we need to execute the entire set of API requests in 290 seconds (*Lambda is Max 300 sec*)  
+therefore we need to run (2210/290=) **8 requests per second** (*one every 125ms*).
 
 
 ### *Required* Environment variables
@@ -70,7 +90,7 @@ export AWS_IAM_ROLE=arn:aws:iam::123456789:role/lambdafull
 export AWS_ACCESS_KEY_ID=YOUR_ID
 export AWS_SECRET_ACCESS_KEY=YORKIE
 ```
-Then add the *real* values.
+Then add the *real* values for each of the keys.
 
 > Environment Variables on a Lambda...?
 
